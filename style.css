@@ -1,0 +1,26 @@
+body {
+    background-color: #333;
+    color: #eee;
+}
+
+h1 {
+    color: #88e;
+}
+
+.knapp {
+    width: 100px;
+}
+
+
+
+
+.letterbox {
+    text-align: center;
+    width: 60px;
+    height: 60px;
+
+    background-color: blue;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+}
