@@ -1,8 +1,20 @@
-pub mod box;
+use yew::prelude::*;
+
+#[derive(Properties, PartialEq)]
+pub struct LetterBoxProps {
+    pub letters: String,
+}
+
 
 #[function_component(LetterBox)]
-fn letter_box() -> Html {
+pub fn letter_box(LetterBoxProps {letters}:&LetterBoxProps) -> Html {
+    let letters = letters.chars().map(|l| html!{
+        <div class="letter">{l}</div>
+    }).collect::<Html>();
+
     html!{
-        <h2>{"Hej"}</h2>
+        <div class="letterbox">
+            {letters}
+        </div>
     }
 }

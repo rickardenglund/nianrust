@@ -11,16 +11,31 @@ h1 {
     width: 100px;
 }
 
-
-
-
 .letterbox {
     text-align: center;
-    width: 60px;
-    height: 60px;
+    line-height: 60px;
+    width: 180px;
+    height: 180px;
 
-    background-color: blue;
+    font-size: 40px;
+    text-transform: capitalize;
+    font-family: monospace;
+
+
+    background-color: #333;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
+    float: left;
+}
+
+.letterbox .letter {
+    border: 3px solid #000;
+}
+
+.grades {
+    width: 150px;
+    padding: 20px;
+    color: black;
+    float: left;
 }
