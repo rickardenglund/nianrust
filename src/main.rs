@@ -29,14 +29,16 @@ fn app() -> Html {
 
             ||()
         }, ());
-
     }
 
     html! {
         <>
-            <h1>{format!("#{}", day.puzzle_number)}</h1>
-            <LetterBox letters={day.letters.clone()}/>
-            <Grades total_words={day.n_words.clone()} />
+        <h1>{format!("Dagens Bokstäver #{}", day.puzzle_number)}</h1>
+            <div class="container">
+                <LetterBox letters={day.letters.clone()} />
+                <Grades total_words={day.n_words.clone()} />
+                // <Quote />
+            </div>
         </>
     }
 }

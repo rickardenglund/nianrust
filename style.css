@@ -3,39 +3,48 @@ body {
     color: #eee;
 }
 
-h1 {
-    color: #88e;
+* {
+    /* outline: solid red; */
+    margin: 0;
+    padding: 0;
 }
 
-.knapp {
-    width: 100px;
+
+h1 {
+    display: block;
+    color: #88e;
+    margin: auto;
+    width: 320px;
+}
+
+.container {
+    margin: 2em auto;
+    width: 320px;
 }
 
 .letterbox {
-    text-align: center;
-    line-height: 60px;
     width: 180px;
-    height: 180px;
+    margin: auto;
+    background-color: #333;
+    display: grid;
+    grid-template-columns: repeat(3, 60px);
+    grid-template-rows: repeat(3, 60px);
+}
 
+.letter {
+    background-color: green;
+    border: 3px solid #000;
+    text-align: center;
+
+    line-height: 60px;
     font-size: 40px;
     text-transform: capitalize;
     font-family: monospace;
-
-
-    background-color: #333;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    float: left;
-}
-
-.letterbox .letter {
-    border: 3px solid #000;
 }
 
 .grades {
-    width: 150px;
-    padding: 20px;
-    color: black;
-    float: left;
+    width: 180px;
+    font-size: 1.5rem;
+    color: white;
+    margin: 2em auto;
 }
