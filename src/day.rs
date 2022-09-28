@@ -9,12 +9,3 @@ pub struct Day {
     #[serde(rename = "NWords")]
     pub n_words:u32,
 }
-
-
-pub fn new()->Day {
-    Day{
-        letters:"".to_owned(),
-        puzzle_number: 0,
-        n_words:0,
-    }
-}

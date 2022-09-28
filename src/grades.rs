@@ -10,9 +10,11 @@ pub struct GradeProps {
 pub fn grades_box(GradeProps {total_words}:&GradeProps) -> html {
     html!{
         <div class="grades">
-            <p>{format!("G: {}", n(total_words, 0.5))}</p>
-            <p>{format!("VG: {}", n(total_words, 0.7))}</p>
-            <p>{format!("MVG: {}", n(total_words, 0.9))}</p>
+            <div>
+                <p>{format!("G: {}", n(total_words, 0.5))}</p>
+                <p>{format!("VG: {}", n(total_words, 0.7))}</p>
+                <p>{format!("MVG: {}", n(total_words, 0.9))}</p>
+            </div>
         </div>
     }
 }

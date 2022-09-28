@@ -1,34 +1,50 @@
 body {
     background-color: #333;
     color: #eee;
+    padding: 4em;
 }
 
 * {
     /* outline: solid red; */
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
-
 h1 {
-    display: block;
-    color: #88e;
+    color: #eee;
     margin: auto;
-    width: 320px;
+    text-align: center;
 }
 
 .container {
-    margin: 2em auto;
-    width: 320px;
+    margin: 2em;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .letterbox {
-    width: 180px;
-    margin: auto;
+    flex-shrink: 0;
+    flex-grow: 0;
+    width: 15rem;
     background-color: #333;
     display: grid;
-    grid-template-columns: repeat(3, 60px);
-    grid-template-rows: repeat(3, 60px);
+    grid-template-columns: repeat(3, 5rem);
+    grid-template-rows: repeat(3, 5rem);
+
+    animation-name: zoomin;
+    animation-duration: 1s;
+}
+
+@keyframes zoomin {
+    0% {
+        transform: scale(0);
+    }
+
+    100% {
+        transform: scale(100%);
+    }
 }
 
 .letter {
@@ -36,15 +52,45 @@ h1 {
     border: 3px solid #000;
     text-align: center;
 
-    line-height: 60px;
-    font-size: 40px;
+    line-height: 5rem;
+    font-size: 3rem;
     text-transform: capitalize;
     font-family: monospace;
 }
 
 .grades {
-    width: 180px;
+    width: 10rem;
+    height: 7rem;
+    align-self: center;
+    /* padding: 1em; */
     font-size: 1.5rem;
     color: white;
-    margin: 2em auto;
+
+    position: relative;
+
+    overflow: hidden;
+    /* outline: solid red 2px; */
+}
+
+.grades>* {
+    margin: 1em;
+    outline: solid blue 2px;
+    position: absolute;
+    animation-name: slidein;
+    animation-duration: 2s;
+}
+
+
+@keyframes slidein {
+    0% {
+        left: 1000px;
+    }
+
+    50% {
+        /* left: 1000px; */
+    }
+
+    100% {
+        left: 0;
+    }
 }
