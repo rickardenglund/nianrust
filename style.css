@@ -34,7 +34,7 @@ h1 {
     grid-template-rows: repeat(3, 5rem);
 
     animation-name: zoomin;
-    animation-duration: 1s;
+    animation-duration: 250ms;
 }
 
 @keyframes zoomin {
@@ -69,15 +69,13 @@ h1 {
     position: relative;
 
     overflow: hidden;
-    /* outline: solid red 2px; */
 }
 
 .grades>* {
     margin: 1em;
-    outline: solid blue 2px;
     position: absolute;
     animation-name: slidein;
-    animation-duration: 2s;
+    animation-duration: 1s;
 }
 
 
@@ -93,4 +91,28 @@ h1 {
     100% {
         left: 0;
     }
+}
+
+nav {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 3rem;
+    gap: 1em;
+    justify-content: center;
+    background-color: #222;
+    padding: 1em;
+}
+
+nav>button {
+    font: inherit;
+    color: black;
+    display: block;
+    padding: 1em 2em;
+
+    background-color: green;
+
 }

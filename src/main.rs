@@ -1,54 +1,56 @@
-use std::ops::Deref;
+mod letterbox;
+mod grades;
+mod day;
+mod today;
+
 
 use yew::{prelude::*};
-use gloo_net::http::Request;
 
-use gloo_net::Error;
 
-mod letterbox;
-use letterbox::*;
+#[derive(Debug)]
+pub enum Msg {
+    Today,
+    Old,
+}
 
-mod grades;
-use grades::*;
+pub struct App {
+    s: Msg,
+}
 
-mod day;
-use crate::day::Day;
+impl Component for App {
+    type Message = Msg;
+    type Properties = ();
 
-#[function_component(App)]
-fn app() -> Html {
-    let day = use_state(|| None);
-    {
-        let day = day.clone();
-        use_effect_with_deps(move |_| {
-                wasm_bindgen_futures::spawn_local(async move {
-                    let fetched_day:Result<Day, Error> = Request::get("https://blooming-hollows-80357.herokuapp.com/today")
-                        .send()
-                        .await
-                        .unwrap()
-                        .json()
-                        .await;
-                        
-                    day.set(Some(fetched_day));
-                });
-            ||()
-        }, ());
+    fn create(_ctx: &Context<Self>) -> Self {
+        App{s: Msg::Today}
+    }
+    fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
+        self.s = msg;
+
+        true
     }
 
-        let resp = day.deref();
-        match resp {
-            None => html!{<h1>{"Chill i dill"}</h1>},
-            Some(Err(e)) => html!{<><h1>{"åh nej... :("}</h1><p>{format!("Fel: \n {}", e)}</p></>},
-            Some(Ok(d))=> html! {
-                <>
-                <h1>{format!("Dagens Bokstäver #{}", d.puzzle_number)}</h1>
-                    <div class="container">
-                        <LetterBox letters={d.letters.clone()} />
-                        <Grades total_words={d.n_words.clone()} />
-                        // <Quote />
-                    </div>
-                </>
-            }
+    fn view(&self, ctx: &Context<Self>) ->Html {
+        let onclick_today = ctx.link().callback(|_| Msg::Today);
+        let onclick_old = ctx.link().callback(|_| Msg::Old);
+
+
+
+        let body = match self.s {
+            Msg::Today => html!{<today::Today />},
+            Msg::Old => html! {<h1>{"Old"}</h1>},
+        };
+
+        html!{
+            <>
+                {body}
+                <nav>
+                    <button onclick={onclick_today}>{"Today"}</button>
+                    <button onclick={onclick_old}>{"Tidigare"}</button>
+                </nav>
+            </>
         }
+    }
 }
 
 
