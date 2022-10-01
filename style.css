@@ -94,7 +94,7 @@ h1 {
 }
 
 nav {
-    position: absolute;
+    position: sticky;
     left: 0;
     right: 0;
     bottom: 0;
@@ -115,4 +115,10 @@ nav>button {
 
     background-color: green;
 
+}
+
+
+/* openint day */
+.historyday {
+	padding: 1em;
 }

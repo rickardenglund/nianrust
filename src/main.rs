@@ -1,11 +1,10 @@
-mod letterbox;
+mod blooming;
 mod grades;
-mod day;
+mod letterbox;
+mod old;
 mod today;
 
-
-use yew::{prelude::*};
-
+use yew::prelude::*;
 
 #[derive(Debug)]
 pub enum Msg {
@@ -22,7 +21,7 @@ impl Component for App {
     type Properties = ();
 
     fn create(_ctx: &Context<Self>) -> Self {
-        App{s: Msg::Today}
+        App { s: Msg::Old }
     }
     fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
         self.s = msg;
@@ -30,18 +29,16 @@ impl Component for App {
         true
     }
 
-    fn view(&self, ctx: &Context<Self>) ->Html {
+    fn view(&self, ctx: &Context<Self>) -> Html {
         let onclick_today = ctx.link().callback(|_| Msg::Today);
         let onclick_old = ctx.link().callback(|_| Msg::Old);
 
-
-
         let body = match self.s {
-            Msg::Today => html!{<today::Today />},
-            Msg::Old => html! {<h1>{"Old"}</h1>},
+            Msg::Today => html! {<today::Today />},
+            Msg::Old => html! {<old::Old />},
         };
 
-        html!{
+        html! {
             <>
                 {body}
                 <nav>
@@ -52,8 +49,6 @@ impl Component for App {
         }
     }
 }
-
-
 
 fn main() {
     yew::start_app::<App>();

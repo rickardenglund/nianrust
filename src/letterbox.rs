@@ -13,10 +13,8 @@ pub fn letter_box(LetterBoxProps {letters}:&LetterBoxProps) -> Html {
     }).collect::<Html>();
 
     html!{
-        <>
             <div class="letterbox">
                 {letters}
             </div>
-        </>
     }
 }
