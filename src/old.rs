@@ -1,10 +1,12 @@
 use yew::prelude::*;
 
-use crate::blooming;
+use crate::{blooming, Route};
+use yew_router::prelude::*;
 
 use super::letterbox::*;
 use gloo_net::http::Request;
 use gloo_net::Error;
+use std::collections::HashMap;
 use std::ops::Deref;
 
 #[function_component(Old)]
@@ -31,6 +33,8 @@ pub fn old() -> Html {
         );
     }
 
+    let nav_history = use_history().unwrap();
+
     let resp = history.deref();
     match resp {
         None => html! {<h1>{"Chill i dill"}</h1>},
@@ -38,17 +42,28 @@ pub fn old() -> Html {
         Some(Ok(h)) => html! {
             <>
                 <div class="container">
-                {h.days.iter().map(|d| html!{
-                                <div class="historyday" >
-                                   <h2>{format!("#{}",d.i)}</h2>
-                                    <LetterBox letters={d.shuffle.clone()} />
-                                </div>
-                                            }
-                            ).collect::<Html>()
+                {h.days.iter().map(|d| {
+                                let nav_history = nav_history.clone();
+                                let shuffle = d.shuffle.clone();
+                                let onclick_callback = Callback::from(move |_| {
+                                    let mut query_params: HashMap<String, String> = HashMap::new();
+                                    query_params.insert("letters".to_owned(), shuffle.clone());
+
+                                    nav_history
+                                        .push_with_query(Route::Solution, &query_params)
+                                        .unwrap();
+                                });
+
+                                html!{
+                                    <div onclick={onclick_callback} class="historyday" >
+                                       <h2>{format!("#{}",d.i)}</h2>
+                                        <LetterBox letters={d.shuffle.clone()} />
+                                    </div>
+                                }
+                            }).collect::<Html>()
                 }
                 </div>
             </>
         },
     }
 }
-

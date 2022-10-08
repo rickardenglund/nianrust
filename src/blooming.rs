@@ -8,6 +8,13 @@ pub fn history_url() -> String {
     String::from(format!("{}/history", BASE_URL))
 }
 
+pub fn solve_url<'a>(letters: &str, required: &str) -> String {
+    String::from(format!(
+        "{}/nian?letters={}&required={}",
+        BASE_URL, letters, required
+    ))
+}
+
 use serde::Deserialize;
 
 #[derive(Clone, PartialEq, Deserialize)]
@@ -35,3 +42,5 @@ pub struct HistoryDay {
     #[serde(rename = "I")]
     pub i: u32,
 }
+
+pub type SolutionResponse = Vec<String>;

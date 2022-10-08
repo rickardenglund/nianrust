@@ -5,7 +5,6 @@ body {
 }
 
 * {
-    /* outline: solid red; */
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -35,6 +34,8 @@ h1 {
 
     animation-name: zoomin;
     animation-duration: 250ms;
+
+		margin-bottom:2em;
 }
 
 @keyframes zoomin {
@@ -121,4 +122,32 @@ nav>button {
 /* openint day */
 .historyday {
 	padding: 1em;
+	cursor: pointer;
 }
+
+.wordlist {
+	padding:1em;
+	width: 100%;
+}
+
+.wordlist h3 {
+	text-transform: uppercase;
+	font-size: 2rem;
+}
+
+.wordlist ul {
+	display:flex;
+	flex-wrap: wrap;
+}
+
+.wordlist ul li{
+	display:block;
+	margin: 1em;
+	font-size: 1.3rem;
+}
+
+.infotext {
+	width: 100vw;
+
+}
+

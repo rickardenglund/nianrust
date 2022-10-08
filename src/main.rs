@@ -2,51 +2,74 @@ mod blooming;
 mod grades;
 mod letterbox;
 mod old;
+mod solution;
 mod today;
 
+use yew::functional::*;
 use yew::prelude::*;
+use yew_router::prelude::*;
 
-#[derive(Debug)]
-pub enum Msg {
+#[derive(Debug, Clone, Copy, PartialEq, Routable)]
+pub enum Route {
+    #[not_found]
+    #[at("/")]
     Today,
-    Old,
+    #[at("/history")]
+    History,
+    #[at("/solution")]
+    Solution,
 }
 
-pub struct App {
-    s: Msg,
-}
-
-impl Component for App {
-    type Message = Msg;
-    type Properties = ();
-
-    fn create(_ctx: &Context<Self>) -> Self {
-        App { s: Msg::Old }
+#[function_component(MyNav)]
+fn mynav() -> Html {
+    let maybe_history = use_history();
+    if let None = maybe_history {
+        return html! {<h1>{"NoHistory"}</h1>};
     }
-    fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
-        self.s = msg;
+    let history = maybe_history.unwrap();
 
-        true
-    }
-
-    fn view(&self, ctx: &Context<Self>) -> Html {
-        let onclick_today = ctx.link().callback(|_| Msg::Today);
-        let onclick_old = ctx.link().callback(|_| Msg::Old);
-
-        let body = match self.s {
-            Msg::Today => html! {<today::Today />},
-            Msg::Old => html! {<old::Old />},
-        };
-
+    let history_btn = {
+        let history = history.clone();
+        let onclick_callback = Callback::from(move |_| history.push(Route::History));
         html! {
-            <>
-                {body}
-                <nav>
-                    <button onclick={onclick_today}>{"Today"}</button>
-                    <button onclick={onclick_old}>{"Tidigare"}</button>
-                </nav>
-            </>
+            <button onclick={onclick_callback.clone()}>{"Senaste veckan"}</button>
         }
+    };
+
+    let today_btn = {
+        let history = history.clone();
+        let onclick_callback = Callback::from(move |_| history.push(Route::Today));
+        html! {
+            <button onclick={onclick_callback.clone()}>{"Dagens"}</button>
+        }
+    };
+
+    html! {
+        <nav>
+            {today_btn}
+            {history_btn}
+         </nav>
+    }
+}
+#[function_component(App)]
+fn app() -> Html {
+    html! {
+        <>
+        <BrowserRouter>
+            <Switch<Route> render={Switch::render(switch)} />
+            <MyNav />
+        </BrowserRouter>
+        </>
+    }
+}
+
+fn switch(routes: &Route) -> Html {
+    match routes {
+        Route::Today => html! {<today::Today />},
+        Route::History => html! {
+            <old::Old />
+        },
+        Route::Solution => html! {<solution::Solution />},
     }
 }
 
